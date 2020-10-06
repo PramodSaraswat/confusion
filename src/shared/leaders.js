@@ -28,7 +28,7 @@ export const LEADERS = [
     },
     {
       id: 3,
-      name: 'Alberto Somayya',
+      name: 'Pramod Saraswat',
       image: '/assets/images/pramod.jpeg',
       designation: 'Executive Chef',
       abbr: 'EC',
