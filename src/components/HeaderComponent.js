@@ -32,7 +32,7 @@ class Header extends React.Component{
 
 	handleLogin(event){
 		this.toggleModal();
-		alert("username"+ this.username.value + "  pass:" + this.password.value + "  remember:" + this.remember.checked );
+		alert("username: "+ this.username.value + "  pass:" + this.password.value + "  remember: " + this.remember.checked );
 		event.preventDefault();
 
 	}
