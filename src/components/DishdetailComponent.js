@@ -53,8 +53,7 @@ class CommentForm extends React.Component {
 	}
 
 	handleSubmit(values){
-		console.log("Current state: " + JSON.stringify(values));
-        alert("Current state: " + JSON.stringify(values))
+		this.props.addComment(this.props.dishId, values.rating, values.author, values.comment);
 	}
 	render(){
 		return(<>
@@ -78,16 +77,16 @@ class CommentForm extends React.Component {
 	                            </Col>
                         	</Row>
 	        				<Row className="form-group">
-	                            <Label htmlFor="yourname" md={10}>Your Name</Label>
+	                            <Label htmlFor="author" md={10}>Your Name</Label>
 	                            <Col md={10}>
-	                                <Control.text model=".yourname" id="yourname" name="yourname" placeholder="Your Name" className="form-control" validators={{required, minLength: minLength(3), maxLength: maxLength(15)}} />
-	                                <Errors className="text-danger" model=".yourname" show="touched" messages={{required: 'Required',minLength: 'Must be greater than 2 characters',maxLength: 'Must be 15 characters or less'}} />
+	                                <Control.text model=".author" id="author" name="author" placeholder="Your Name" className="form-control" validators={{required, minLength: minLength(3), maxLength: maxLength(15)}} />
+	                                <Errors className="text-danger" model=".author" show="touched" messages={{required: 'Required',minLength: 'Must be greater than 2 characters',maxLength: 'Must be 15 characters or less'}} />
 	                            </Col>
                         	</Row>
                         	<Row className="form-group">
-                        		<Label htmlFor="message" md={10}>Comment</Label>
+                        		<Label htmlFor="comment" md={10}>Comment</Label>
                         		<Col md={10}>
-                        			<Control.textarea model=".message" id="message" name="message" rows="6" className="form-control" />
+                        			<Control.textarea model=".comment" id="comment" name="comment" rows="6" className="form-control" />
                         		</Col>
                         	</Row>
 	   	      				<Row className="form-group">
@@ -108,7 +107,7 @@ class CommentForm extends React.Component {
 
 }
 
-function RenderComments({comments}){
+function RenderComments({comments, addComment, dishId}){
 			if(comments != null) {
 				const displayComment=comments.map((content)=>{return(
 				<div key={content.id}>
@@ -146,7 +145,7 @@ const Dishdetail = (props) => {
 				</div>
 				<div className="col-12 col-md-5 m-1 ">			
 					<RenderComments comments={props.comments} />
-					<CommentForm />	
+					<CommentForm addComment={props.addComment} dishId={props.dish.id} />	
 		
 				</div>
 			</div>
