@@ -37,9 +37,9 @@ class CommentForm extends React.Component {
 		this.state={
 			isNavOpen:false
 		};
-		this.toggleNav=this.toggleNav.bind(this);
-		this.toggleModal=this.toggleModal.bind(this);
-		this.handleSubmit=this.handleSubmit.bind(this);
+		this.toggleNav = this.toggleNav.bind(this);
+		this.toggleModal = this.toggleModal.bind(this);
+		this.handleSubmit = this.handleSubmit.bind(this);
 
 	}
 
@@ -56,7 +56,7 @@ class CommentForm extends React.Component {
 	}
 
 	handleSubmit(values){
-		this.props.addComment(this.props.dishId, values.rating, values.author, values.comment);
+		this.props.postComment(this.props.dishId, values.rating, values.author, values.comment);
 	}
 	render(){
 		return(<>
@@ -117,7 +117,7 @@ class CommentForm extends React.Component {
 
 }
 
-function RenderComments({comments, addComment, dishId}){
+function RenderComments({comments, postComment, dishId}){
 			if(comments != null) {
 				const displayComment=comments.map((content)=>{return(
 				<div key={content.id}>
@@ -134,7 +134,7 @@ function RenderComments({comments, addComment, dishId}){
 			
 			else 
 				return(<div></div>);
-	 }
+	}
 
 const Dishdetail = (props) => {
 	if (props.isLoading){
@@ -174,7 +174,7 @@ const Dishdetail = (props) => {
 				</div>
 				<div className="col-12 col-md-5 m-1 ">			
 					<RenderComments comments={props.comments} />
-					<CommentForm addComment={props.addComment} dishId={props.dish.id} />	
+					<CommentForm postComment={props.postComment} dishId={props.dish.id} />	
 		
 				</div>
 			</div>
