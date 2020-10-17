@@ -8,7 +8,10 @@ function RenderLeader({item} ){
         <div key={item.id} className="col-12 mt-5">
         <Media tag="li">
             <Media left>
-                <Media object src={item.image} alt={item.name} height="110px" width="110px" />
+                <Media object src={item.image} 
+                alt={item.name} 
+                height="110px" 
+                width="110px" />
             </Media>
             <Media body className="ml-5">
                 <Media heading>

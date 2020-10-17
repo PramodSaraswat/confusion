@@ -1,14 +1,17 @@
 import React from 'react';
-import {Card, CardImg, CardText, CardBody, CardTitle, Breadcrumb, BreadcrumbItem, Button, Modal, ModalHeader, ModalBody, Row, Col, Label } from 'reactstrap';
+import {Card, CardImg, CardText, CardBody, CardTitle, 
+	Breadcrumb, BreadcrumbItem, Button, Modal, ModalHeader, 
+	ModalBody, Row, Col, Label } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { Control, LocalForm, Errors } from 'react-redux-form';
 import { Loading } from './LoadingComponent'
+import { baseUrl } from '../shared/baseUrl';
 
 function RenderDish({dish}){
 	if(dish!=null)
 		return(
 			<Card>
-				<CardImg top src={dish.image} alt={dish.name} />
+				<CardImg top src={baseUrl + dish.image} alt={dish.name} />
 				<CardBody>
 					<CardTitle>{dish.name}</CardTitle>
 					<CardText>{dish.description}</CardText>
@@ -79,14 +82,21 @@ class CommentForm extends React.Component {
 	        				<Row className="form-group">
 	                            <Label htmlFor="author" md={10}>Your Name</Label>
 	                            <Col md={10}>
-	                                <Control.text model=".author" id="author" name="author" placeholder="Your Name" className="form-control" validators={{required, minLength: minLength(3), maxLength: maxLength(15)}} />
-	                                <Errors className="text-danger" model=".author" show="touched" messages={{required: 'Required',minLength: 'Must be greater than 2 characters',maxLength: 'Must be 15 characters or less'}} />
+	                                <Control.text model=".author" 
+		                                id="author" name="author" 
+		                                placeholder="Your Name" className="form-control" 
+		                                validators={{required, minLength: minLength(3), maxLength: maxLength(15)}} />
+	                                <Errors className="text-danger" 
+		                                model=".author" show="touched" 
+		                                messages={{required: 'Required',minLength: 'Must be greater than 2 characters',maxLength: 'Must be 15 characters or less'}} />
 	                            </Col>
                         	</Row>
                         	<Row className="form-group">
                         		<Label htmlFor="comment" md={10}>Comment</Label>
                         		<Col md={10}>
-                        			<Control.textarea model=".comment" id="comment" name="comment" rows="6" className="form-control" />
+                        			<Control.textarea model=".comment" 
+                        			id="comment" name="comment" 
+                        			rows="6" className="form-control" />
                         		</Col>
                         	</Row>
 	   	      				<Row className="form-group">
