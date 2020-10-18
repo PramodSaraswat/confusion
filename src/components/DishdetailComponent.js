@@ -6,17 +6,24 @@ import { Link } from 'react-router-dom';
 import { Control, LocalForm, Errors } from 'react-redux-form';
 import { Loading } from './LoadingComponent'
 import { baseUrl } from '../shared/baseUrl';
+import { FadeTransform, Fade, Stagger } from 'react-animation-components';
+
 
 function RenderDish({dish}){
 	if(dish!=null)
 		return(
-			<Card>
-				<CardImg top src={baseUrl + dish.image} alt={dish.name} />
-				<CardBody>
-					<CardTitle>{dish.name}</CardTitle>
-					<CardText>{dish.description}</CardText>
-				</CardBody>
-			</Card> 
+			<FadeTransform in 
+				transformProps={{
+				exitTransform: 'scale(0.5) translateY(-50%)' 
+				}}>
+				<Card>
+					<CardImg top src={baseUrl + dish.image} alt={dish.name} />
+					<CardBody>
+						<CardTitle>{dish.name}</CardTitle>
+						<CardText>{dish.description}</CardText>
+					</CardBody>
+				</Card> 
+			</FadeTransform>
 		);
 
 		else 
@@ -119,16 +126,22 @@ class CommentForm extends React.Component {
 
 function RenderComments({comments, postComment, dishId}){
 			if(comments != null) {
-				const displayComment=comments.map((content)=>{return(
-				<div key={content.id}>
-					<li className="mt-3">{content.comment}</li>
-					<li className="mt-3">--{content.author}, {new Date(content.date).toDateString()}</li>
-				</div>)});
+				const displayComment=comments.map((content)=>{
+					return(
+						<Fade in>
+							<div key={content.id}>
+								<li className="mt-3">{content.comment}</li>
+								<li className="mt-3">--{content.author}, {new Date(content.date).toDateString()}</li>
+							</div>
+						</Fade>
+					)});
 				return(
 					<ul className="list-unstyled">
 					<h1>Comment</h1>
+					<Stagger in>
 					{displayComment}
-					</ul>
+					</Stagger>	
+					</ul>	
 				);
 			}
 			
