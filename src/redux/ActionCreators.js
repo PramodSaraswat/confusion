@@ -1,5 +1,4 @@
 import * as ActionTypes from './ActionTypes';
-import { DISHES } from '../shared/dishes';
 import { baseUrl } from '../shared/baseUrl';
 
 export const addComment = (comment) => ({
@@ -197,3 +196,46 @@ export const addLeaders = (leaders) => ({
 	type: ActionTypes.ADD_LEADERS,
 	payload: leaders
 });
+
+export const postFeedback = (firstname,lastname,telnum,email,agree,contactType,message) => (dispatch) => {
+
+	const newFeedback = {
+		firstname: firstname,
+		lastname: lastname,
+		telnum: telnum,
+		email: email,
+		agree: agree,
+		contactType: contactType,
+		message: message
+	}
+	newFeedback.date = new Date().toISOString();
+
+	return fetch(baseUrl + 'feedback', {
+		method: 'POST',
+		body: JSON.stringify(newFeedback),
+		headers: {
+			'Content-Type': 'application/json'
+		},
+		credentials: 'same-origin'
+	})
+	.then(response => {
+			if (response.ok) {
+				return response;
+			}
+			else {
+				var error = new Error('Error ' + response.status + ': ' + response.statusText);
+				error.response = response;
+				throw error;
+			}
+		},
+		error => {
+			var errmess = new Error(error.message);
+			throw errmess;
+		})
+		.then(response => response.json())
+		.then(response => alert("Thank you for your feedback!" + JSON.stringify(response)))
+		.catch(error => {console.log('feedback', error.message);
+			alert('Your feedback can not be added\nError: ' + error.message)
+		});
+
+}
